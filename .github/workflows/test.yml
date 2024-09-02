@@ -21,7 +21,7 @@ jobs:
           
       - name: Check permission
         run: whoami && uname -a
-  	
+        
       - name: Install KDE
         run: alias pkg='apt' && curl -L https://github.com/kde-yyds/termux-x11-plasma-installer/raw/master/install.sh | bash
   

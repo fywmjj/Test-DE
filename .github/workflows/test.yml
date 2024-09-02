@@ -17,4 +17,7 @@ jobs:
           node-version: '20.x' 
           
       - name: Check permission
-        run: whoami && uname -a && sudo -i && exit
+        run: whoami && uname -a
+        
+      - name: Try to su
+        run: sudo -i | whoami

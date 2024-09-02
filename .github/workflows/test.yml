@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  workflow_dispatch:
+
+#env:
+#  ACCOUNTS_JSON: ${{ secrets.ACCOUNTS_JSON }}
+
+jobs:  
+  login:  
+    runs-on: debian-latest  
+  
+    steps:  
+      - name: Checkout repository  
+        uses: actions/checkout@v3  
+  
+      - name: Set up Node.js  
+        uses: actions/setup-node@v3  
+        with:  
+          node-version: '20.x' 
+          
+      - name: Check permission
+        run: whoami && uname -a
+  	
+      - name: Install KDE
+        run: alias pkg='apt' && curl -L https://github.com/kde-yyds/termux-x11-plasma-installer/raw/master/install.sh | bash
+  
+      - name: Start session
+        run: |  
+          set -e  
+          xvfb-run --server-args="-screen 0 1366x768x24" plasma

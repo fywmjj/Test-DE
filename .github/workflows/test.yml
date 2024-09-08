@@ -16,8 +16,8 @@ jobs:
         with:  
           node-version: '20.x' 
           
-      - name: Check permission
-        run: whoami && uname -a
+      - name: Check Aliases
+        run: alias
         
       - name: Try to su
-        run: sudo -i | whoami
+        run: sudo apt update && sudo apt upgrade -y

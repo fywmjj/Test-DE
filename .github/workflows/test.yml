@@ -14,10 +14,26 @@ jobs:
       - name: Set up Node.js  
         uses: actions/setup-node@v3  
         with:  
-          node-version: '20.x' 
+          node-version: '22.x' 
           
       - name: Check Aliases
         run: alias
         
       - name: Try to su
-        run: sudo apt update && sudo apt upgrade -y
+        run: sudo add-apt-repository ppa:zhangsongcui3371/fastfetch && sudo apt update && sudo apt upgrade -y
+        
+      - name: Remove junks
+        run: sudo apt autoremove -y
+
+      - name: Install some packages
+        run: sudo apt install fastfetch lolcat -y
+      
+      - name: Try another
+        run: sudo apt install neofetch lolcat -y
+      
+      - name: Print system version (1)
+        run: sudo neofetch | lolcat -t -a
+        
+      - name: Print system version (2)
+        run: sudo fastfetch -c all.jsonc | lolcat -t -a
+        

@@ -33,12 +33,20 @@ jobs:
       
       - name: Check system IP
         run: curl 4.ipw.cn
+      
+      - name: Check system IP (v6)
+        run: curl 6.ipw.cn
         
       - name: Check system IP (4+6)
         run: curl test.ipw.cn
 
-      - name: Install x11vnc
-        run: sudo apt install x11vnc -y
+      - name: Install xvfb and x11vnc
+        run: sudo apt install xvfb x11vnc -y
+
+      - name: Start xvfb
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1024x768x16 &
 
       - name: Set x11vnc password
         run: |
@@ -47,7 +55,8 @@ jobs:
 
       - name: Start x11vnc
         run: |
-          x11vnc -forever -usepw -display :0 &
+          export DISPLAY=:99
+          x11vnc -forever -usepw -display :99 &
 
       - name: Sleep for 600 seconds
         run: sleep 600

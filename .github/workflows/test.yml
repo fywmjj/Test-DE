@@ -33,9 +33,6 @@ jobs:
       
       - name: Check system IP
         run: curl 4.ipw.cn
-        
-      - name: Check system IP (4+6)
-        run: curl test.ipw.cn
 
       - name: Install xvfb and x11vnc
         run: sudo apt install xvfb x11vnc -y
@@ -50,10 +47,21 @@ jobs:
           mkdir -p ~/.vnc
           x11vnc -storepasswd 12345678 ~/.vnc/passwd
 
+      - name: Allow VNC port through ufw
+        run: |
+          sudo ufw allow 5900
+          sudo ufw enable
+          sudo ufw status
+
       - name: Start x11vnc
         run: |
           export DISPLAY=:99
           x11vnc -forever -usepw -display :99 &
+
+      - name: Verify x11vnc is running
+        run: |
+          sleep 5  # Give x11vnc some time to start
+          netstat -tuln | grep 5900
 
       - name: Sleep for 600 seconds
         run: sleep 600

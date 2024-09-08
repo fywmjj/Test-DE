@@ -1,11 +1,11 @@
-name: Test
+name: Worker Test
 
 on:
   workflow_dispatch:
 
 jobs:  
-  test:  
-    runs-on: ubuntu-latest  
+  check:  
+    runs-on: ubuntu-24.04  
   
     steps:  
       - name: Checkout repository  
@@ -20,20 +20,22 @@ jobs:
         run: alias
         
       - name: Try to su
-        run: sudo add-apt-repository ppa:zhangsongcui3371/fastfetch && sudo apt update && sudo apt upgrade -y
+        run: sudo add-apt-repository ppa:zhangsongcui3371/fastfetch && sudo apt update
         
       - name: Remove junks
         run: sudo apt autoremove -y
 
       - name: Install some packages
         run: sudo apt install fastfetch lolcat -y
-      
-      - name: Try another
-        run: sudo apt install neofetch lolcat -y
-      
-      - name: Print system version (1)
-        run: sudo neofetch | lolcat -t -a
         
-      - name: Print system version (2)
+      - name: Print system version
         run: sudo fastfetch -c all.jsonc | lolcat -t -a
+      
+      - name: Check system IP
+        run: curl 4.ipw.cn
+      
+      - name: Check system IP (v6)
+        run: curl 6.ipw.cn
         
+      - name: Check system IP (4+6)
+        run: curl test.ipw.cn

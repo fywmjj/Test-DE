@@ -33,9 +33,6 @@ jobs:
       
       - name: Check system IP
         run: curl 4.ipw.cn
-      
-      - name: Check system IP (v6)
-        run: curl 6.ipw.cn
         
       - name: Check system IP (4+6)
         run: curl test.ipw.cn

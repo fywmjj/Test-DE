@@ -39,3 +39,18 @@ jobs:
         
       - name: Check system IP (4+6)
         run: curl test.ipw.cn
+
+      - name: Install x11vnc
+        run: sudo apt install x11vnc -y
+
+      - name: Set x11vnc password
+        run: |
+          mkdir -p ~/.vnc
+          x11vnc -storepasswd 12345678 ~/.vnc/passwd
+
+      - name: Start x11vnc
+        run: |
+          x11vnc -forever -usepw -display :0 &
+
+      - name: Sleep for 600 seconds
+        run: sleep 600
